@@ -1,0 +1,274 @@
+---
+// Componente de ramo animado (colores adaptados a azules)
+const { class: className = '' } = Astro.props;
+---
+<div class={`rose-scene relative w-full ${className}`}>
+  <div class="container">
+    <div class="glass">
+      <div class="shine"></div>
+    </div>
+    <div class="thorns">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="leaves">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="petals">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="deadPetals">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .rose-scene { height: 460px; overflow: hidden; }
+  @media (min-width: 420px) { .rose-scene { height: 520px; } }
+
+  .rose-scene .container {
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+  }
+
+  .rose-scene .glass {
+    height: 420px;
+    width: 260px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 140px 140px 0 0;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(10px);
+    box-shadow: 
+      0 0 20px rgba(0, 0, 0, 0.1),
+      0 0 40px rgba(255, 255, 255, 0.2),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  .rose-scene .glass:before {
+    content: "";
+    height: 24px;
+    width: 24px;
+    transform-origin: center;
+    border: 14px solid rgba(255, 255, 255, 0.3);
+    border-radius: 100%;
+    position: absolute;
+    left: 118px;
+    top: -44px;
+    box-shadow: 
+      0 0 15px rgba(0, 0, 0, 0.1),
+      0 0 30px rgba(255, 255, 255, 0.2);
+  }
+  .rose-scene .glass:after {
+    content: "";
+    position: absolute;
+    height: 8px;
+    width: 260px;
+    background: rgba(255, 255, 255, 1);
+    top: 100%;
+    left: 0;
+  }
+  .rose-scene .shine {
+    width: 14px;
+    height: 170px;
+    background: white;
+    opacity: 0.2;
+    position: absolute;
+    left: 85%;
+    top: 110px;
+    border-radius: 100px;
+    z-index: 10;
+  }
+  .rose-scene .shine:before {
+    content: "";
+    width: 14px;
+    height: 22px;
+    position: absolute;
+    background: white;
+    top: 180px;
+    border-radius: 100px;
+  }
+
+  .rose-scene .petals>div {
+    position: absolute;
+    background: #2d6dd5;
+    width: 60px;
+    height: 86px;
+    top: 120px;
+    transition: all 0.5s ease-out;
+  }
+  .rose-scene .petals>div:nth-child(1) {
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(120, 180, 255, 1);
+    left: 118px;
+    top: 118px;
+    background: #2d6dd5;
+  }
+  .rose-scene .petals>div:nth-child(2),
+  .rose-scene .petals>div:nth-child(4),
+  .rose-scene .petals>div:nth-child(6) {
+    background: #1b56b8;
+    left: 96px;
+    border-radius: 0 38px 0 38px;
+    transform-origin: bottom right;
+  }
+  .rose-scene .petals>div:nth-child(3),
+  .rose-scene .petals>div:nth-child(5),
+  .rose-scene .petals>div:nth-child(7) {
+    background: #1b56b8;
+    left: 148px;
+    border-radius: 38px 0 38px 0;
+    transform-origin: bottom left;
+  }
+  .rose-scene .petals>div:nth-child(2) {
+    z-index: 5;
+    background: #1a4aab;
+    top: 130px;
+    height: 92px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .5);
+    animation: bloom2 3s ease-in-out forwards;
+  }
+  .rose-scene .petals>div:nth-child(3) {
+    z-index: 4;
+    background: #1a4aab;
+    top: 130px;
+    height: 92px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .5);
+    animation: bloom3 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+  }
+  .rose-scene .petals>div:nth-child(4) {
+    z-index: 3;
+    background: #1b56b8;
+    top: 126px;
+    height: 96px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .5);
+    animation: bloom4 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+  }
+  .rose-scene .petals>div:nth-child(5) {
+    z-index: 2;
+    background: #1b56b8;
+    top: 126px;
+    height: 96px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .5);
+    animation: bloom5 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+  }
+  .rose-scene .petals>div:nth-child(6) {
+    z-index: 1;
+    background: #2a5fc9;
+    top: 120px;
+    height: 92px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .3);
+    animation: bloom6 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+  }
+  .rose-scene .petals>div:nth-child(7) {
+    z-index: 0;
+    background: #2a5fc9;
+    top: 120px;
+    height: 92px;
+    box-shadow: 0 0 38px rgba(120, 180, 255, .3);
+    animation: bloom7 3s ease-in-out forwards, glowing 2.5s ease-in-out infinite;
+  }
+
+  .rose-scene .deadPetals>div {
+    position: absolute;
+    background: #2d6dd5;
+    width: 14px;
+    height: 12px;
+    top: 120px;
+    border-radius: 0 22px 0 22px;
+    box-shadow: 0 0 26px rgba(120, 180, 255, .5);
+    transition: all 0.5s ease-out;
+  }
+  .rose-scene .deadPetals>div:nth-child(1) { left: 9999px; transform: rotate(-30deg); animation: falling 20s 4s ease-in-out infinite; }
+  .rose-scene .deadPetals>div:nth-child(2) { left: 9999px; transform: rotate(-30deg); animation: falling 20s 8s ease-in-out infinite; }
+  .rose-scene .deadPetals>div:nth-child(3) { left: 9999px; transform: rotate(-30deg); animation: falling 20s 12s ease-in-out infinite; }
+  .rose-scene .deadPetals>div:nth-child(4) { left: 9999px; transform: rotate(-30deg); animation: falling 20s 16s ease-in-out infinite; }
+
+  .rose-scene .leaves>div:nth-last-child(1) {
+    position: absolute;
+    width: 40px;
+    height: 24px;
+    background: #338f37;
+    top: 210px;
+    left: 124px;
+    border-radius: 100px;
+  }
+  .rose-scene .leaves>div:nth-child(1) {
+    position: absolute;
+    width: 10px;
+    height: 230px;
+    background: #054c05;
+    top: 190px;
+    left: 138px;
+    border-radius: 0 0 100px 100px;
+  }
+  .rose-scene .leaves>div:nth-child(2) {
+    position: absolute;
+    width: 44px;
+    height: 70px;
+    border-radius: 10px 80px 40px 80px;
+    background: #054c05;
+    transform-origin: bottom;
+    transform: rotate(-30deg);
+    top: 245px;
+    left: 112px;
+    box-shadow: inset 8px 8px #066406;
+  }
+  .rose-scene .leaves>div:nth-child(3) {
+    position: absolute;
+    width: 44px;
+    height: 70px;
+    border-radius: 80px 1px 80px 40px;
+    background: #054c05;
+    transform-origin: bottom;
+    transform: rotate(30deg);
+    top: 214px;
+    left: 140px;
+    box-shadow: inset -8px 8px #066406;
+  }
+
+  .rose-scene .thorns>div { position: absolute; width: 0; height: 0; top: 120px; }
+  .rose-scene .thorns>div:nth-child(odd) { border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 10px solid #054c05; left: 148px; }
+  .rose-scene .thorns>div:nth-child(even) { border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-right: 10px solid #054c05; left: 128px; }
+  .rose-scene .thorns>div:nth-child(1) { top: 270px; }
+  .rose-scene .thorns>div:nth-child(2) { top: 228px; }
+  .rose-scene .thorns>div:nth-child(4) { top: 306px; }
+
+  @keyframes bloom2 { 50% { transform: rotate(-90deg); top: 230px; left: 60px; } 100% { transform: rotate(-60deg); top: 330px; left: 30px; background: #113a7a; box-shadow: 0 0 0 rgba(120, 180, 255, 0); } }
+  @keyframes bloom3 { 100% { transform: rotate(50deg); } }
+  @keyframes bloom4 { 100% { transform: rotate(-25deg); } }
+  @keyframes bloom5 { 100% { transform: rotate(25deg); } }
+  @keyframes bloom6 { 100% { transform: rotate(-10deg); } }
+  @keyframes bloom7 { 100% { transform: rotate(10deg); } }
+  @keyframes glowing { 50% { background: #2c6bd0; box-shadow: 0 0 38px rgba(120, 180, 255, 1); } }
+  @keyframes falling { 20% { top: 190px; background: #184d9d; box-shadow: 0 0 0 rgba(120, 180, 255, 0); } 100% { top: 190px; opacity: 0; } }
+
+  .rose-scene .texto {
+    top: calc(100% - 2.5rem);
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 1rem;
+  }
+</style>
+
+

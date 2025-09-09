@@ -1,0 +1,18 @@
+---
+const { size = 'w-36 h-36', class: className = '' } = Astro.props;
+---
+<div class={`relative ${size} ${className}`}>
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="flower">
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div class="petal" style={`left:30px; top:30px; transform: rotate(${i*60}deg)`}></div>
+      ))}
+      <div class="center"></div>
+    </div>
+  </div>
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-24 bg-green-600 rounded-full"></div>
+  <div class="absolute bottom-4 left-[35%] w-3 h-12 bg-green-500 rotate-45 rounded-full"></div>
+  <div class="absolute bottom-6 right-[35%] w-3 h-10 bg-green-500 -rotate-45 rounded-full"></div>
+</div>
+
+

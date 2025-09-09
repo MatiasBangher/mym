@@ -1,0 +1,542 @@
+---
+import "../styles/global.css";
+import BlueBouquet from "../components/BlueBouquet.astro";
+import AnimatedRose from "../components/AnimatedRose.astro";
+import StepButton from "../components/StepButton.astro";
+
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Para Mili</title>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-white via-pink-100 to-pink-300 text-black">
+    <main class="min-h-dvh w-full flex flex-col items-center justify-center p-6 gap-6">
+      <section id="step-1" class="w-full max-w-sm text-center flex flex-col items-center gap-6">
+        <h1 id="greeting" class="text-3xl font-display font-bold text-black"></h1>
+        <AnimatedRose class="w-full" />
+        <h2 class="text-2xl font-display font-bold text-black">Lista????</h2>
+        <StepButton onClickText="Si, Continuar" class="mt-2" />
+      </section>
+
+      <!-- Paso 1B: Flor sorpresa y mensaje -->
+      <section id="step-1b" class="hidden w-full max-w-sm text-center flex flex-col items-center gap-4">
+        <h2 class="text-2xl font-bold text-black">🌹 Tengo algo para vos🌹</h2>
+        <button class="open-flower-btn border-8" id="openButton">Presiona aqui</button>
+        <div class="flower-container" id="flower">
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="petal"></div>
+          <div class="center"></div>
+        </div>
+        <p class="message text-black" id="message"></p>
+        <StepButton onClickText="Continuar" class="hidden" id="continue-bloom" />
+
+        <style>
+          /* Estilos locales del paso 1B */
+          #step-1b { overflow: hidden; }
+          #step-1b .open-flower-btn {
+            background: white;
+            border: 3px solid #ef4444;
+            padding: 12px 22px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .3s;
+            box-shadow: 0 0 15px rgba(239, 68, 68, .5);
+            color: #1f2937;
+          }
+          #step-1b .open-flower-btn:hover { background: #ef4444; color: white; transform: scale(1.06); }
+          #step-1b .flower-container {
+            position: relative; width: 160px; height: 160px;
+            display: flex; justify-content: center; align-items: center;
+            transform: scale(0); transition: transform 1s ease-in-out;
+          }
+          #step-1b .petal { position: absolute; width: 56px; height: 86px; background: #ef4444; border-radius: 50%; opacity: 0; transition: all 1s ease-in-out; }
+          #step-1b .petal:nth-child(1) { transform: rotate(0deg) translateY(-44px); }
+          #step-1b .petal:nth-child(2) { transform: rotate(45deg) translateY(-44px); }
+          #step-1b .petal:nth-child(3) { transform: rotate(90deg) translateY(-44px); }
+          #step-1b .petal:nth-child(4) { transform: rotate(135deg) translateY(-44px); }
+          #step-1b .petal:nth-child(5) { transform: rotate(180deg) translateY(-44px); }
+          #step-1b .center { width: 44px; height: 44px; background: #fde047; border-radius: 50%; position: absolute; opacity: 0; transition: opacity 1s ease-in-out; }
+          /* Petalos extra al lado izquierdo (225°, 270°, 315°) */
+          #step-1b .petal:nth-child(6) { transform: rotate(225deg) translateY(-44px); }
+          #step-1b .petal:nth-child(7) { transform: rotate(270deg) translateY(-44px); }
+          #step-1b .petal:nth-child(8) { transform: rotate(315deg) translateY(-44px); }
+          #step-1b .message { font-size: 18px; color: black; font-weight: 700; opacity: 0; transition: opacity 1s ease-in-out; margin-top: 6px; }
+        </style>
+      </section>
+
+      <section id="step-2" class="hidden w-full max-w-sm text-center flex flex-col items-center gap-4">
+        <div class="card">
+          <p class="text-lg text-black">Buscá 6 papelitos dentro de tu cartera, cada uno tiene una fecha, ordenalos, cuando los tengas presiona continuar.</p>
+        </div>
+        <StepButton onClickText="Continuar" />
+      </section>
+
+      <section id="step-3" class="hidden w-full max-w-sm text-center flex flex-col items-center gap-4">
+        <h2 class="text-2xl font-bold text-black">Para leer la carta tenes que presionarla, antes de hacerlo, te traeré algo</h2>
+        <div class="w-full flex justify-center">
+          <div class="envelope">
+            <div class="envelope-inner">
+              <div class="envelope-front">
+                <div class="postage-stamp">
+                  <svg fill="currentColor" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"><path d="M253.98,257.652c0-8.568,8.568-17.748,17.136-18.361c-1.224-4.895-1.224-10.402-0.611-15.299 c-3.061,0.611-7.345,0-10.404-1.225c-6.12-3.061-9.792-9.18-9.792-15.912c0-9.18,7.956-20.807,17.136-21.42 c0-2.447,0.612-4.896,0.612-7.344s0.612-4.896,0.612-7.344c-7.956,3.061-17.137-4.283-18.973-12.24 c-1.836-9.792,4.284-17.748,12.853-21.42c-0.612-1.836-0.612-4.284-0.612-6.12c0-3.672,0-7.344,0.612-11.016 c-3.061,0-6.12-1.224-9.181-3.06c-4.283-3.06-6.731-7.344-7.344-12.24c0-0.612,0-1.836,0-2.448c0-9.792,8.568-15.3,17.136-16.524 c-0.611-3.672,0-7.956,0-11.628c0-3.06,0-6.12,0.612-9.18c-7.956,2.448-18.36-4.284-20.808-12.24 c-2.448-7.956,1.836-17.748,9.792-20.808c-1.225-3.06-1.225-6.732-1.225-10.404c0-3.06-0.611-6.732-0.611-9.792 c-9.792,12.24-39.168,4.284-40.393-9.18C205.632,3.672,200.124,1.836,195.84,0c0.611,9.18-7.956,17.748-17.137,17.748 c-9.18,0-16.523-6.732-18.359-15.3c-2.448,0-4.896,0-6.732-0.612c-2.448,0-4.896-0.612-7.956-1.224c0,4.284-2.448,9.18-5.508,12.24 c-3.672,3.672-9.18,6.12-14.076,6.12c-1.224,0-2.448,0-3.672-0.612c-5.508-1.224-12.24-4.896-14.076-11.016 c0-0.612,0-0.612,0-1.224c-4.896,0.612-11.016-0.612-15.912-2.448c-0.612,8.568-9.18,15.3-18.36,14.076 c-4.284-0.612-9.792-3.06-11.016-7.344c0-0.612,0-0.612,0-1.224c0,0,0,0.612-0.612,0.612c-3.672,3.06-8.568,2.448-12.852,1.836 c-1.224,0-2.448,0-3.672,0c1.224,0.612,1.836,1.836,2.448,2.448c3.672,4.896,5.508,11.016,3.06,17.136 c-3.06,8.568-14.076,12.24-22.032,9.18c0,1.224-0.612,1.836-0.612,3.06c-0.612,3.672-0.612,6.732-0.612,10.404 c9.792-1.224,22.644,1.224,23.868,12.852c0.612,5.508-3.06,11.016-8.568,12.852c-2.448,1.224-5.508,1.224-7.956,1.224 c-0.612,0-1.224,0-2.448-0.612c0,1.836,0,4.284,0,6.12c0,3.672,0.612,7.344-0.612,11.016l0,0c0.612,0,0.612-0.612,1.224-0.612 c11.628-3.672,23.256,7.344,19.584,18.972c-1.224,4.896-5.508,8.568-9.792,10.404c-3.672,1.224-6.732,1.836-10.404,1.836 c-0.612,1.836-0.612,3.06-1.224,4.896c-0.612,2.448-0.612,5.508-0.612,7.956c8.568-4.284,22.032-1.836,22.644,9.18 c0.612,9.179-10.404,24.48-21.42,23.869c0,1.223,0,3.059,0,4.283c0,2.447-0.612,4.896-0.612,7.957 c2.448-1.225,6.12-1.836,9.18-1.836c6.12,0.611,11.016,4.895,12.24,11.016c3.672,13.463-9.18,22.643-20.808,20.807 c-0.612,4.285-1.224,9.793-1.836,13.465c5.508-4.283,17.748-3.061,21.42,4.283c8.568,15.912-8.568,25.705-22.032,28.152 c0,4.896,0,10.404-1.224,15.301c7.344-4.285,18.36-4.285,25.704,0c7.956,4.896,11.628,13.463,11.628,22.031 c3.672-0.611,7.344-1.223,11.016-1.223c0-8.568,9.18-20.197,16.524-20.809c4.896-0.613,9.792,2.447,11.628,7.344 c1.836,4.283,1.224,9.791,3.06,14.076c0.612,0,1.224-0.611,1.836-0.611c3.06,0,4.896-0.613,7.344-1.838 c-0.612-1.836,0-3.672,0.612-6.119c1.224-4.896,5.508-9.18,10.404-10.404c11.016-3.061,19.584,4.896,22.645,14.688 c3.672-0.611,7.344-0.611,11.628-0.611c1.836,0,3.672,0,5.508,0c-2.448-8.566,4.284-18.971,13.464-19.584 c0.612,0,1.224,0,1.836,0c5.508,0,10.404,3.061,13.464,6.732c1.836,2.449,3.672,5.508,4.284,8.568c1.224,0,2.448,0,4.284,0 s3.672,0,5.508,0c1.224-7.955,9.792-14.076,17.748-14.688c7.956-0.613,15.912,3.672,19.584,11.016 c5.508-3.672,13.464-6.119,20.808-6.119c0-2.449,0-4.896,0-7.957C261.936,273.564,253.98,264.996,253.98,257.652z M243.576,266.221 c0,4.283-6.12,4.283-6.12,0l0,0c-3.672-77.725-4.896-155.449-9.792-233.173c-0.611,0.612-1.224,0.612-2.447,0.612 c-52.633,0-105.264,1.836-157.896,1.836c0,0,0,0-0.612,0c6.732,15.3,3.06,41.616,3.06,57.528c0,17.748,0,35.496,0,53.856 c0,39.78,0,79.56-1.224,119.341c0,1.836-1.224,3.059-2.448,3.672c50.796-12.854,115.668-14.076,167.688-6.732 c1.836,0.611,3.061,1.836,3.061,3.672s-1.225,4.283-3.672,4.896c-15.912,0.611-31.824,0.611-47.736,0.611 c-12.852,0-25.704,0-39.168,0.611c-26.316,1.225-53.856,4.285-79.56,0.613c-1.836,0-1.836-3.061,0-3.672 c-2.448,1.223-6.732,0-6.12-3.672c1.224-76.5-1.836-154.225,3.06-230.725c0-2.448,0-4.896,0.612-7.344c0-3.06,4.284-3.06,4.284,0 c0,0.612,0,1.224,0,1.224c19.584-2.448,39.168-3.672,59.364-4.896c33.048-1.224,66.097-1.224,98.532-0.612 c1.224,0,2.448,0.612,3.06,1.224c1.837-2.448,6.732-1.836,7.345,2.448c2.447,25.704,4.896,51.408,6.12,77.112 C244.8,158.508,246.024,212.977,243.576,266.221z"/></svg>
+                </div>
+                <div class="address">
+                  <p><span>Para:</span> <span>Milagros Venialgo</span></p>
+                  <p><span>De:</span> <span>Mati B</span></p>
+                </div>
+              </div>
+              <div class="envelope-back">
+                <div class="top-fold"></div>
+                <div class="letter">
+                  <p>He descubierto que el mejor plan en mi vida es compartirla con vos<span class="highlight">Queresssss......</span></p>
+                  <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" alt="love1" class="custom-image" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <style>
+          @import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap);
+          #step-3 { font-family: "Quicksand", ui-sans-serif, system-ui; }
+          #step-3 .envelope { --duration: 900ms; --envelope-width: 300px; --envelope-height: 180px; --envelope-clr-bg: #d14d44; --envelope-clr-bg-side: #c24e46; --envelope-clr-bg-bottom: #e15349; --envelope-clr-bg-top: #d14d44; --envelope-clr-txt: #fff; --letter-clr-bg: #fff; --letter-clr-text: #c0392b; --letter-font-size: .95rem; --letter-height: calc(var(--envelope-height) - 2rem); --letter-height-hover: calc(var(--envelope-height) * 1.7); position: relative; height: var(--envelope-height); width: var(--envelope-width); perspective: 1000px; cursor: pointer; }
+          @media (min-width: 720px){ #step-3 .envelope{ --envelope-width: 360px; --envelope-height: 210px; --letter-font-size: 1.05rem; } }
+          #step-3 .envelope::after{ content:""; position:absolute; top:110%; left:50%; width: calc(var(--envelope-width) * 0.85); height: 30px; translate:-50% 0; border-radius:50%; background: rgba(56,6,6,0.35); filter: blur(14px); transition: var(--duration) ease-in-out; pointer-events: none; z-index: 0; }
+          #step-3 .envelope-inner{ position:relative; width:100%; height:100%; transform-style: preserve-3d; transition: var(--duration) ease-in-out; display:grid; }
+          #step-3 .envelope-front, #step-3 .envelope-back{ position:relative; grid-area:1/1; width:100%; height:100%; background-color: var(--envelope-clr-bg); backface-visibility: hidden; isolation:isolate; }
+          #step-3 .envelope-front{ color:var(--envelope-clr-txt); display:grid; place-content:center; }
+          #step-3 .envelope-front .postage-stamp{ position:absolute; top:.6em; right:.5em; width:18%; }
+          #step-3 .envelope-front .address{ text-align:left; font-size:.9rem; }
+          #step-3 .envelope-back{ transform: rotateY(180deg); }
+          #step-3 .envelope-back::after{ content:""; position:absolute; inset:0; z-index:3; background-image: conic-gradient( transparent 60deg, var(--envelope-clr-bg-side) 60deg 120deg, var(--envelope-clr-bg-bottom) 120deg 240deg, var(--envelope-clr-bg-side) 240deg 300deg, transparent 300deg ); }
+          #step-3 .envelope-back .top-fold{ position:absolute; inset:0; z-index:10; background-color: var(--envelope-clr-bg-top); clip-path: polygon(0% 0%, 50% 55%, 100% 0%); transform-origin: top; transition: var(--duration) ease-in-out; }
+          #step-3 .letter{ position:absolute; bottom:5px; left:50%; width:90%; height: var(--letter-height); font-size: var(--letter-font-size); transform: translateX(-50%); background: var(--letter-clr-bg); z-index:2; padding: 1.2em 1.6em; display:flex; flex-direction:column; gap:.75rem; align-items:center; text-align:center; transition: var(--duration) ease-in-out; overflow:hidden; }
+          #step-3 .letter p{ margin:0; font-weight:700; width: 28ch; color: var(--letter-clr-text); }
+          #step-3 .custom-image{ width:84px; height:84px; object-fit:contain; }
+          #step-3 .custom-image2{ width:120px; height:120px; object-fit:contain; }
+          #step-3 .highlight{ display:block; margin-top:8px; font-size:1.2rem; }
+          /* Apertura solo con tap/click: se usa la clase .open */
+          #step-3 .envelope.open .envelope-inner{ transform: rotateY(180deg); }
+          #step-3 .envelope.open .envelope-back .top-fold{ transform: rotateX(180deg); z-index: 0; }
+          #step-3 .envelope.open .letter{ height: var(--letter-height-hover); }
+        </style>
+      </section>
+
+      <section id="step-4" class="hidden w-full max-w-sm text-center flex flex-col items-center gap-4">
+        <h2 class="text-2xl font-bold text-black">¿Aceptas?</h2>
+        <div class="flex gap-3">
+          <button id="yes" class="heart-button"><span>Sí</span></button>
+          <button id="no" class="btn-primary bg-white/50">No</button>
+        </div>
+      </section>
+  
+      <section id="step-5" class="hidden w-full max-w-sm text-center flex flex-col items-center gap-1">
+        <h2 class="text-lg font-bold text-black mb-1">Ahora sos mi NOVIA. <br>Llenemos de momentos y recuerdos hermosos y felices</br> <span>TE AMO♥️</span></h2>
+        
+        
+        <div id="slideshow" class="w-full h-[500px] bg-white/20 rounded-xl overflow-hidden relative">
+          {Array.from({ length: 8}).map((_, i) => (
+            <div class="slide absolute inset-0 grid place-items-center text-2xl font-bold text-black"
+                 style={`background: rgba(255,255,255,0.2); left:0; top:0; opacity:${i===0?1:0}`}>
+              <img src={`/fotos/foto${i+1}.jpg`} alt={`Foto ${i+1}`} class="w-full h-full object-contain rounded-xl" />
+            </div>
+          ))}
+        </div>
+
+        <style>
+          /* Botón con forma de corazón - más pequeño */
+          .heart-button {
+            position: relative;
+            width: 60px;
+            height: 50px;
+            background: #ff6b6b;
+            transform: rotate(-45deg);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.4);
+          }
+          
+          .heart-button:before,
+          .heart-button:after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 50px;
+            background: #ff6b6b;
+            border-radius: 50%;
+          }
+          
+          .heart-button:before {
+            top: -25px;
+            left: 0;
+          }
+          
+          .heart-button:after {
+            top: 0;
+            left: 25px;
+          }
+          
+          .heart-button:hover {
+            transform: rotate(-45deg) scale(1.1);
+            background: #ff5252;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.6);
+          }
+          
+          .heart-button:hover:before,
+          .heart-button:hover:after {
+            background: #ff5252;
+          }
+          
+          .heart-button span {
+            position: relative;
+            z-index: 10;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            transform: rotate(45deg);
+          }
+          
+          /* Efectos de celebración simplificados */
+          .celebration-effect {
+            position: fixed;
+            z-index: 999999;
+            pointer-events: none;
+            font-size: 40px;
+            animation: celebration-animation 3s ease-out forwards;
+          }
+          
+          @keyframes celebration-animation {
+            0% { 
+              transform: translateY(0) scale(0) rotate(0deg); 
+              opacity: 1; 
+            }
+            50% { 
+              transform: translateY(-100px) scale(1.5) rotate(180deg); 
+              opacity: 0.8; 
+            }
+            100% { 
+              transform: translateY(-200px) scale(0) rotate(360deg); 
+              opacity: 0; 
+            }
+          }
+          
+          /* Confetti bonito con formas variadas */
+          .confetti {
+            position: fixed;
+            z-index: 999999;
+            pointer-events: none;
+            animation: confetti-fall 4s linear forwards;
+          }
+          
+          /* Confetti cuadrado */
+          .confetti.square {
+            width: 20px;
+            height: 20px;
+          }
+          
+          /* Confetti circular */
+          .confetti.circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+          }
+          
+          /* Confetti triangular */
+          .confetti.triangle {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #fff;
+          }
+          
+          @keyframes confetti-fall {
+            0% { 
+              transform: translateY(-100px) rotate(0deg); 
+              opacity: 1; 
+            }
+            100% { 
+              transform: translateY(calc(100vh + 100px)) rotate(720deg); 
+              opacity: 0; 
+            }
+          }
+        </style>
+      </section>
+    </main>
+
+    <script type="module">
+      // Carga perezosa de GSAP para evitar que falle la navegación si falta la dependencia
+      let gsapRef = null;
+      import('gsap').then(m => { gsapRef = m.gsap; initAnimations(); }).catch(() => { /* sin GSAP, seguir funcional */ });
+
+      const steps = [
+        document.getElementById('step-1'),
+        document.getElementById('step-1b'),
+        document.getElementById('step-2'),
+        document.getElementById('step-3'),
+        document.getElementById('step-4'),
+        document.getElementById('step-5'),
+      ];
+
+      function showStep(i) {
+        steps.forEach((s, idx) => {
+          if (!s) return;
+          s.classList.toggle('hidden', idx !== i);
+        });
+      }
+
+      // Step 1: saludos cíclicos y flor animada
+      const greetings = ["Hola Mili", "chiquita", "amor de mi vida", "miñi miñi miñi miñi", "SORPRISE SORPRISEEEE"];
+      const greetingEl = document.getElementById('greeting');
+      let gi = 0;
+      function cycleGreeting() {
+        if (!greetingEl) return;
+        greetingEl.textContent = greetings[gi % greetings.length];
+        if (gsapRef) gsapRef.fromTo(greetingEl, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' });
+        gi++;
+      }
+      cycleGreeting();
+      setInterval(cycleGreeting, 1600);
+
+      function initAnimations() {
+        if (!gsapRef) return;
+        gsapRef.fromTo('.flower .petal', { scale: 0.8 }, { scale: 1, duration: 1.2, repeat: -1, yoyo: true, stagger: 0.1, ease: 'sine.inOut' });
+      }
+
+      // Navegación de botones
+      const buttons = document.querySelectorAll('button');
+      let stepIndex = 0;
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = (e.target).id;
+          // No avanzar cuando es el botón de abrir la flor
+          if (id === 'openButton') {
+            bloomFlower();
+            return;
+          }
+          if (id === 'no') {
+            // El "No" huye (si hay GSAP)
+            moveNo();
+            return;
+          }
+          if (id === 'yes') {
+            // Ir a fotos (step-5)
+            showStep(5);
+            startSlideshow();
+            return;
+          }
+          stepIndex = Math.min(stepIndex + 1, steps.length - 1);
+          showStep(stepIndex);
+
+          if (stepIndex === 2) initBagGame();
+          if (stepIndex === 3) openLetter();
+        });
+      });
+
+      // Hacer que el botón "No" huya también al pasar cerca (hover/touch)
+      const noBtn = document.getElementById('no');
+      function moveNo() {
+        const dx = (Math.random() * 160) - 80;
+        const dy = (Math.random() * 160) - 80;
+        if (gsapRef) {
+          gsapRef.to('#no', { x: `+=${dx}`, y: `+=${dy}`, duration: 0.35, ease: 'power2.out' });
+        } else if (noBtn) {
+          const prev = noBtn.style.transform || 'translate(0px, 0px)';
+          noBtn.style.transform = `${prev} translate(${dx}px, ${dy}px)`;
+        }
+      }
+      if (noBtn) {
+        noBtn.addEventListener('mouseenter', moveNo);
+        noBtn.addEventListener('touchstart', (e) => { e.preventDefault(); moveNo(); }, { passive: false });
+      }
+
+      // Paso 1B: lógica de flor y mensaje
+      const openBtn = document.getElementById('openButton');
+      const flower = document.getElementById('flower');
+      const petals = () => document.querySelectorAll('#flower .petal');
+      const center = () => document.querySelector('#flower .center');
+      const messageEl = document.getElementById('message');
+      const continueBloom = document.getElementById('continue-bloom');
+
+      function bloomFlower() {
+        if (openBtn) openBtn.style.display = 'none';
+        if (flower) flower.style.transform = 'scale(1)';
+        petals().forEach((petal, index) => {
+          setTimeout(() => { petal.style.opacity = '1'; }, index * 500);
+        });
+        setTimeout(() => {
+          if (center()) center().style.opacity = '1';
+          if (messageEl) {
+            messageEl.style.opacity = '1';
+            typeMessage();
+          }
+        }, 2500);
+        // Fallback: mostrar el botón aunque falle el tipeo
+        setTimeout(() => { if (continueBloom) continueBloom.classList.remove('hidden'); }, 6000);
+      }
+
+      function typeMessage() {
+        const text = 'Esta es mi segunda flor, pueden ser más... 🌹';
+        if (!messageEl) return;
+        let i = 0; messageEl.textContent = '';
+        (function type() {
+          if (i < text.length) { messageEl.textContent += text[i++]; return setTimeout(type, 60); }
+          if (continueBloom) continueBloom.classList.remove('hidden');
+        })();
+      }
+
+      // Nota: el click de #openButton se maneja arriba en el listener general de botones
+
+      function initBagGame() {
+        const notes = document.querySelectorAll('#bag-area .note');
+        notes.forEach(n => {
+          n.addEventListener('click', () => {
+            if (gsapRef) gsapRef.to(n, { rotation: 0, scale: 1.3, background: '#fde68a', duration: 0.3 });
+            n.textContent = '💙';
+          }, { once: true });
+        });
+      }
+
+      function openLetter() {
+        const env = document.querySelector('#step-3 .envelope');
+        if (!env) return;
+        // Estado inicial cerrado al entrar al paso
+        env.classList.remove('open');
+        // Evitar múltiples listeners
+        if (!env.dataset.bound) {
+          env.addEventListener('click', () => {
+            env.classList.toggle('open');
+            // Mostrar "¿Aceptas?" después de abrir la carta
+            if (env.classList.contains('open')) {
+              setTimeout(() => {
+                const acceptSection = document.getElementById('step-4');
+                if (acceptSection) acceptSection.classList.remove('hidden');
+              }, 1000);
+            }
+          });
+          env.dataset.bound = 'true';
+        }
+      }
+
+      let slideshowTl;
+      function startSlideshow() {
+        const slides = document.querySelectorAll('#slideshow .slide');
+        
+        // Iniciar confetti y fuegos artificiales
+        startCelebration();
+        
+        if (gsapRef) {
+          slideshowTl = gsapRef.timeline({ repeat: -1 });
+          slides.forEach((s) => {
+            slideshowTl.to(s, { opacity: 1, duration: 0.6, ease: 'power2.out' })
+              .to(s, { opacity: 0, duration: 0.6, ease: 'power2.in' }, "+=2");
+          });
+        } else {
+          // Fallback simple sin GSAP
+          let i = 0;
+          setInterval(() => {
+            slides.forEach((s, idx) => s.style.opacity = (idx === i ? '1' : '0'));
+            i = (i + 1) % slides.length;
+          }, 2600);
+        }
+      }
+
+      function startCelebration() {
+        console.log('🎉 Iniciando celebración!');
+        
+        // Función para crear emojis flotantes
+        function createFloatingEmoji() {
+          const effect = document.createElement('div');
+          effect.style.position = 'fixed';
+          effect.style.fontSize = '40px';
+          effect.style.zIndex = '999999';
+          effect.style.pointerEvents = 'none';
+          effect.style.left = Math.random() * window.innerWidth + 'px';
+          effect.style.top = window.innerHeight - 100 + 'px';
+          effect.innerHTML = ['🎉', '💖', '🎊', '✨', '💕'][Math.floor(Math.random() * 5)];
+          effect.style.animation = 'celebration-animation 3s ease-out forwards';
+          document.body.appendChild(effect);
+          
+          setTimeout(() => {
+            if (effect.parentNode) effect.remove();
+          }, 3000);
+        }
+        
+        // Función para crear confetti bonito
+        function createConfetti() {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          
+          // Colores bonitos
+          const colors = [
+            '#ff6b6b', '#feca57', '#1dd1a1', '#5f27cd', '#54a0ff', 
+            '#ff9ff3', '#48dbfb', '#ee5253', '#0c8d42', '#105ead',
+            '#e11414', '#c28b16', '#21ffc4', '#3e0ba3', '#164c8f',
+            '#f10cd2', '#37727f', '#0bfdbd', '#790606', '#bb1515',
+            '#d20000', '#c79b3b', '#01d29b', '#5406f0', '#5d0051',
+            '#3296ac', '#e33838', '#e31111', '#560101', '#ffbb2a',
+            '#3dfbc9', '#7d46ec', '#137dff', '#5500ff', '#da24c2',
+            '#007b5a', '#02ffbb', '#1a5296', '#78226d', '#136477',
+            '#00ffbb', '#980606'
+          ];
+          
+          // Formas variadas
+          const shapes = ['square', 'circle', 'triangle'];
+          const shape = shapes[Math.floor(Math.random() * shapes.length)];
+          
+          confetti.classList.add(shape);
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.left = Math.random() * window.innerWidth + 'px';
+          confetti.style.top = '-100px';
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          confetti.style.animationDuration = (Math.random() * 2 + 3) + 's';
+          
+          // Para triángulos, el color va en el border
+          if (shape === 'triangle') {
+            confetti.style.background = 'transparent';
+            confetti.style.borderBottomColor = colors[Math.floor(Math.random() * colors.length)];
+          }
+          
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => {
+            if (confetti.parentNode) confetti.remove();
+          }, 5000);
+        }
+
+        // Crear efectos inmediatamente
+        for (let i = 0; i < 15; i++) {
+          setTimeout(() => createFloatingEmoji(), i * 200);
+          setTimeout(() => createConfetti(), i * 150);
+        }
+        
+        // Continuar creando efectos
+        const emojiInterval = setInterval(createFloatingEmoji, 400);
+        const confettiInterval = setInterval(createConfetti, 250);
+        
+        // Parar después de 25 segundos
+        setTimeout(() => {
+          clearInterval(emojiInterval);
+          clearInterval(confettiInterval);
+        }, 25000);
+      }
+      
+    </script>
+  </body>
+  </html>
+
+
